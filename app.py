@@ -40,8 +40,9 @@ user_input = st.text_input("Type your message here:", key="user_input")
 if st.button("Send"):
     if user_input:
         response = call_web_service(user_input)
-        chat_history.append("You :" + " " + user_input)
         chat_history.append("DocChat :" + " " + response["message"])
+        chat_history.append("You :" + " " + user_input)
+        
         for message in chat_history:
             format_sql_insert = 'INSERT INTO messages (message, unique_id) VALUES ("{value}","{uniqueid}")'.format(value=message,uniqueid=st.session_state['session_unique_id'])
             print("DEBUG:  " + format_sql_insert)
